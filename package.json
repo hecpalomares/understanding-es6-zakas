@@ -1,0 +1,14 @@
+{
+  "name": "understanding-es6-zakas",
+  "version": "1.0.0",
+  "description": "- Excercises, notes, and questions taken from the book \"Understanding ECMASCRIPT 6\" by Nicholas C. Zakas",
+  "main": "chapter-1-block-bindings.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "assert": "^1.4.1"
+  }
+}
