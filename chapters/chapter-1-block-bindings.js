@@ -51,7 +51,7 @@ function b(condition) {
 //	2.2 const Declarations: the values cannot changed once set. Every const binding must be initialized on declearation
 
 const NAME = "Alice";		// Valid
-const PI;						// Invalid, SyntaxError: Missing initializer in const declaration)
+const PI;								// Invalid, SyntaxError: Missing initializer in const declaration)
 
 const NAME = "Bob";			//	Invalid, SyntaxError: Identifier 'NAME' has already been declared
 
@@ -72,3 +72,30 @@ if(true) {
 	console.log(typeof myValue);
 	let myValue = "red";		// Invalid, ReferenceError: myValue is not defined
 }
+
+//	Block Bindings in loops
+for(var i = 0; i <= 3; i++) {
+	console.log(i);	// 3
+}
+
+console.log(i);		// 3, still accesible outside the loop
+
+for(let j = 0; j <= 3; j++) {
+	console.log(j);
+}
+
+console.log(j);		// j is not accessible here, error
+
+/*	Summary: */
+// 'let' and 'const' block bindings introduce lexical scoping to JavaScript. These declarations are not hoisted and only exist in the block declared.
+
+// 	Block bindings offer advantages: Share similarities with other established languagues (easier to transfer the knowledgement between them).
+//	Less unlikely to to cause errors, since variables are declared when they're exactly needed (or an error will be thrown).
+
+// 	Accessing a variable declared with block bindings before its declaration, would result in an error since it is the TDZ (Temporal Dead Zone).
+
+//	Both 'let' and 'const' create a new binding with each iteration through the loop. 
+//	Using a 'const' declaration inside a loop would return an error at the second iteration, as it try to reassign a value.
+
+//	The current best practice for block binding is use 'const' by default, and use 'let' declaration when we are sure the value will change. 
+//	Ensuring some basic level of immutability.
