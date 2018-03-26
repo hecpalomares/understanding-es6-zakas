@@ -135,3 +135,76 @@ console.log(typeof myBlockedFunc3);	// // "function"
 //  3. No prototype: Since 'new' keyword cannot be used, there's no need of prototype.
 // 	4. Can't change 'this': It remaisn the same throughout the entire life cycle.
 // 	5. No arguments object: No arguments binding, rely on named and rest parameters.
+
+// Arrow Function, with a single parameter
+let reflect = value => value;
+
+// Function Expression Equivalent
+let refectFE = function(value) {
+	return value;
+};
+
+console.log(reflect('returning from arrow function'));
+console.log(refectFE('returning from function expression'));
+
+// Arrow Function, with multiple parameters (enclose them in a parenthesis)
+let sum = (a, b) => a + b;
+
+// Function Expression Equivalent
+let sumFE = function(a, b) {
+	return a + b;
+};
+
+console.log(sum(2, 5));
+console.log(sumFE(2, 5));
+
+// Arrow Function, with no parameters must has a empty set of parameters
+let getName = () => "Héctor";
+
+// Function Expression Equivalent
+let getNameFE = function() {
+	return "Héctor";
+};
+
+console.log(getName());
+console.log(getNameFE());
+
+// Arrow Function, with a function body needs wrap it between curly braces
+let greaterThan = (a, b) => {
+	return a > b;
+};
+
+// Function Expression Equivalent
+let greaterThanFE = function(a, b) {
+	return a > b;
+};
+
+console.log(greaterThan(8, 5));
+console.log(greaterThanFE(8, 5));
+
+// Arrow Function, returning an object literal. Wrapping the object literal in parenthesis signal that the curly braces are an object literal.
+let getTempItem = id =>({id: id, name: "Temp"});
+
+// Function Expression Equivalent
+let getTempItemFE = function(id) {
+	return {
+		id: id,
+		name: "Temp"
+	};
+};
+
+console.log(getTempItem(2567).id, getTempItem(2567).name);
+console.log(getTempItemFE(2567).id, getTempItemFE(2567).name);
+
+/* IIFE (Immediatly Invoked Function Expressions) */
+
+// AF: By wrapping the arrow function in parenthesis, an IIFE + Arrow Function is achieved.
+let personIIFE = ((name) => {
+	return {
+		getName: function() {
+			return name;
+		}
+	};
+})("Hector IIFE");
+
+console.log(personIIFE.getName());
