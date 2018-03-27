@@ -86,6 +86,20 @@ let notAPerson = Person("Cassius");
 console.log(person);			// Person { name: Cassius }
 console.log(notAPerson);	// undefined
 
+function Animal(kingdom, species) {
+	if(typeof new.target !== "undefined") {
+		this.kingdom = kingdom;
+		this.species = species;
+	} else {
+		throw new Error("You msut use 'new' with Animal Class");
+	}
+}
+
+let Dog = new Animal("mammal", "Canine");
+let Cat = Animal.call("mammal", "Feline");
+
+// The new.target identifies functions that should be called with 'new' keyword
+
 // Functions have a [Call] and [Constructor] method. [Call] method executes the code as its in the body function. When called with [Constructor]
 // the method returns an new object (called an instance), and with 'this' set to the instnace. Arrow functions do not have a [Constructor] method.
 
@@ -208,3 +222,30 @@ let personIIFE = ((name) => {
 })("Hector IIFE");
 
 console.log(personIIFE.getName());
+
+/* Tail Call Optimization */
+// Tail call is when a function is called as the last statement from another function
+
+function a() {
+	return b();	// tail call
+}
+// ES5 engines: create a new stack frame and pused onto call stack to represent the function call.
+
+function aOptimized() {
+	"use strict";
+
+	return bOptimized();
+}
+// ES6 engines: Current stack frame is cleared and reused if ->
+// 1. Tail Call not require access to variables in the current stack
+// 2. Function calling the tail call do has further work to do after tail call returns
+// 3. The result of tail call is returned as the function value
+
+// Summary Chapter 3
+// Default parameters: allows to specify at ease what value to use when a particular argument is not passed. 
+// Rest parameters: allows to specify an array into which all remaining parameters should be placd. Uses a real array, and can specify which parameters.
+// Spread operator: allows to deconstruct an array into separate parameters when calling a function.
+// Name property: identify functions and evaluation properties.
+// Function is called with [[Call]] when normally invoked. Function is called with [[Construct]] when called with 'new' keyword.
+// Arrow Functions: desgined to replace the anonymous functions function expressions. Lexical 'this' binding, no arguments object. Cannot be used as constructors.
+// Tail call optimization: allows function calls to be optimized to maintain a smaller caller stack, use less memory, prevent stack overflow errors. Applied automatically.
