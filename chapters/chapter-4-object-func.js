@@ -116,3 +116,50 @@ let enumObj = {
 enumObj.d = 3;
 
 console.log(Object.getOwnPropertyNames(enumObj).join(", "));  // 0, 1, a, c, b, d
+
+/* Prototypes */
+// Changing Object Prototype
+let human = {
+    getGreeting() {
+        return "Hello I'm a human.";
+    }
+};
+
+let dog = {
+    getGreeting() {
+        return "Woof, Woof";
+    }
+};
+
+let friend = Object.create(human);  // Prototype is person
+console.log(friend.getGreeting());  // "Hello I'm a human"
+console.log(Object.getPrototypeOf(friend) === human);   // true
+
+// Params : sourceTarget, sourceObjectPrototype
+Object.setPrototypeOf(friend, dog); // set prototype of dog
+console.log(friend.getGreeting());  // Woof, Woof
+console.log(Object.getPrototypeOf(friend) === dog);   // true
+
+// Formal Method Definition
+let cat = {
+    // Method
+    getGreeting() {
+        return "Meow";
+    }
+};
+
+// not a method
+function shareGreeting() {
+    return "Hi";
+}
+
+let friendAndHuman = {
+    getGreeting() {
+        return super.getGreeting() + " and I'm your a friend.";
+    }
+};
+
+Object.setPrototypeOf(friendAndHuman, human);   // Hello I'm a human. and I'm your a friend.
+console.log(friendAndHuman.getGreeting());
+
+// Summary
