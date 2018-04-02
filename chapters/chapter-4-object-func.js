@@ -162,4 +162,14 @@ let friendAndHuman = {
 Object.setPrototypeOf(friendAndHuman, human);   // Hello I'm a human. and I'm your a friend.
 console.log(friendAndHuman.getGreeting());
 
-// Summary
+/* Summary
+* Shorthand property definitions: make assignaments properties with the same name as in-scope
+variables.
+* Computed property names: specify non-literal values as property names.
+* Shorthand methods: ommit function 'keyword' and semicolor to name methods of an object or Class.
+* Object.assign(): Change multiple properties all at once, and good to make mixins.
+* Object.is(): perfroms strict equality value.
+* getOwnPropertyNames(): Enumeration of object properties.
+* Object.setPrototypeOf: modify an object property after its creation.
+* super: calls methods on an object prototype.
+*/
