@@ -62,4 +62,37 @@ let myConvertedArray = [...set3];
 // Spread operator. Useful approach to create an array without duplicated items
 console.log(myConvertedArray);
 
-// Map: collection of keys that corresponds to specific values
+// Weak Set: Only stores weak object references and cannot store primitive values.
+// Create a Weak Set
+let xKey1 = {}, xKey2 = {};
+let weakSet = new WeakSet([xKey1, xKey2]);
+
+console.log(weakSet.has(xKey1));    // true
+console.log(weakSet.has(xKey2));    // true
+
+// removes the last strong reference to key (also removes from weak set)
+xKey1 = null;
+console.log(weakSet.has(xKey1));    // false
+
+// 0. Biggest difference between Sets and WeakSets are the weak reference is held in the object value.
+// 1. add(), has(), delete() throw an error when passive a nonobject.
+// 2. Aren't iterable
+// 3. Don't expose any iterators (such as keys() and values())
+// 4. No forEach() method
+// 5. No size property
+
+// This all limited functionality of weak sets is neccessary to properly handle memory. Useful when
+// only we are tracking object references.
+
+/* Map: orderded list of key-values pairs where key-values pair can be any type */
+
+// Creating a Map with new Map() method.
+let mapX = new Map();
+
+// Adding pairs of (key,value) with .set() method
+mapX.set("movieTitle", "Alien");
+mapX.set("year", 1979);
+
+// Retrieving values by passing the key with .get() method
+console.log(mapX.get("movieTitle"));    // Alien
+console.log(mapX.get("year"));          // 1979
