@@ -36,22 +36,22 @@ set2.size;  // 0
 // Iterating over Sets
 // forEach, first and second parameter is the same, since Sets do now have keys.
 set.forEach(function(value, key, sameSet){
-    console.log(value, key);
-    console.log(set === sameSet);
+	console.log(value, key);
+	console.log(set === sameSet);
 });
 
 // forEach, with 'this' as a second argument
 let set3 = new Set([1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 2, 4, 2, 3, 5, 2, 9, 3, 2]);
 
 let processor = {
-    outputDuplicated(value) {
-        console.log(value * 2);
-    },
-    process(dataSet){
-        dataSet.forEach(function(value) {
-            this.outputDuplicated(value);
-        }, this);
-    }
+	outputDuplicated(value) {
+		console.log(value * 2);
+	},
+	process(dataSet){
+		dataSet.forEach(function(value) {
+			this.outputDuplicated(value);
+		}, this);
+	}
 };
 
 processor.process(set3);    // 2, 4, 6, 8, 10
@@ -96,3 +96,56 @@ mapX.set("year", 1979);
 // Retrieving values by passing the key with .get() method
 console.log(mapX.get("movieTitle"));    // Alien
 console.log(mapX.get("year"));          // 1979
+
+// Possible objects or numbers as keys
+let mapY = new Map();
+let objAsKey = {};
+let objAsKey2 = {};
+
+mapY.set(2, "2-as-a-key");
+mapY.set(objAsKey, "obj-as-a-key");
+mapY.set(objAsKey2, "obj-as-a-key2");
+
+console.log(mapY.get(2));               // 2-as-a-key
+console.log(mapY.get(objAsKey));        // obj-as-a-key
+console.log(mapY.get(objAsKey2));        // obj-as-a-key2
+// keys are not coerced into another form, each object is consider unique, similar to Set.
+
+// Maps Methods
+// .delete(key): removes key and its associated value from the array
+// .has(key): determines if the given key exists in the map
+// clear(): removes all keys and values from the map
+
+let mapZ = new Map();
+mapZ.set("name", "Hector");
+mapZ.set("age", 25);
+
+console.log(mapZ.size === 2);   // true
+
+mapZ.has("name");       // true
+mapZ.get("name");       // Hector
+
+mapZ.has("age");        // true
+mapZ.get("age");        // 25
+
+mapZ.delete("name");    
+mapZ.has("name");				// false
+mapZ.get("name");				// undefined
+mapZ.size === 1;				// true 
+
+mapZ.clear();
+mapZ.has("age")					// false
+mapZ.get("age")					// undefined
+mapZ.size === 0;				// 0
+
+// Map initialization, data is set by passing arrays inside the 'new' constructor method
+
+let mapA = new Map([["Book", "Clean Code 2nd Edition"], ["Movie", "Alien"]]);
+console.log(mapA.get("Book"));
+console.log(mapA.get("Movie"));
+
+mapA.forEach((value, key, originalMap) => {
+	console.log(`${key} + ${value}`);
+	console.log(originalMap === mapA);
+});
+
