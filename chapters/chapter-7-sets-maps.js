@@ -149,3 +149,11 @@ mapA.forEach((value, key, originalMap) => {
 	console.log(originalMap === mapA);
 });
 
+// Weak Maps: Store weak object references. Weak maps every key must be an object.
+
+// Summary:
+// Sets: unordered list of unique values. Automatically removes duplicates. Iterate them with forEach().
+// Weak sets: special sets that contain only objects with weak references, the weak set will not block the garbage collection.
+// Maps: unordered key-value pairs where the key can be any data type. Iterate them with forEach().
+// Weak maps: special type of map that contains only objects with weak references. When a key is garbage collected,
+// the value associated is deleted. Useful for memory management.
