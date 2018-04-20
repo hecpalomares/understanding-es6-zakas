@@ -57,7 +57,6 @@ console.log(iteratorObjY.next());
 console.log(iteratorObjY.next());
 
 // Built-In iterators
-// entries() method: returns a two-item array (key and value) each time next() is called.
 let colors = ["Red", "Green", "Yellow"];
 let tracking = new Set([8527, 5290, 4129]);
 let data = new Map();
@@ -65,17 +64,109 @@ let data = new Map();
 data.set("name", "Hector");
 data.set("age", 25);
 
-// Returns 'index' and 'value'
-for(let entry of colors.entries()) {
+// entries() method: returns a two-item array (key and value) each time next() is called.
+
+// Arrays, returns array containing 'index' and 'value'
+for(let entry of colors.entries()) {  // [ 0, 'Red' ], [ 1, 'Green' ], [ 2, 'Yellow' ]
   console.log(entry);
 }
 
-// Return 'value' and 'value' siince its a Set
-for(let entry of tracking.entries()) {
+// Set, returns array containing 'value' and 'value' since its a Set
+for(let entry of tracking.entries()) { // [ 8527, 8527 ], [ 5290, 5290, ], [ 4129, 4129,]
   console.log(entry);
 }
 
-// Returns the 'key' and 'value'
-for(let entry of data.entries()) {
+// Map, returns array containing the 'key' and 'value'
+for(let entry of data.entries()) {    // [ 'name', 'Hector' ], [ 'age', 25 ]
   console.log(entry);
 }
+
+// values() method: returns the values stored in the collection
+// Arrays, returns the exact value
+for(let value of colors) {            // Red, Green, Yellow 
+  console.log(value);
+}
+
+// Set, returns the exact value
+for(let value of tracking.values()) { // 8527, 5290, 4129
+  console.log(value);
+}
+
+// Map, returns the exact value
+for(let value of data.values()) {     // Hector, 25
+  console.log(value);
+}
+
+// keys() method: returns the key present in the collection
+for(let keys of colors.keys()) {     // 0, 1, 2
+  console.log(keys);
+}
+
+// Set, returns the exact keys
+for(let keys of tracking.keys()) {  // 8527, 5290, 4129
+  console.log(keys);
+}
+
+// Map, returns the exact keys
+for(let keys of data.keys()) {    // name, age  
+  console.log(keys);
+}
+
+// Default iterators: used by for-of loop when no iterator is specified
+// arrays and sets -> values()
+// maps -> entries()
+
+// Advanced Iterator Functionality
+// Passing Arguments to iterators: Passing an argument replace the value of the iterator.
+function *createIteratorArgs() {
+  let first = yield 1;
+  let second = yield first + 2;
+  yield second + 3;
+}
+
+let iteratorArgs = createIteratorArgs();
+
+console.log(iteratorArgs.next());   // { value: 1, done: false }
+console.log(iteratorArgs.next(4));  // { value: 6, done: false }
+console.log(iteratorArgs.next(5));  // { value: 8, done: false }
+console.log(iteratorArgs.next(5));  // { value: undefined, done: true }
+
+// Return Statements: Since iterators are functions, it can return undefined value or even a value itself.
+function* createIteratorReturn() {
+  yield 1;
+  yield 2;
+  return 'a';
+  yield 3;
+}
+
+let iteratorReturn = createIteratorReturn();
+
+console.log(iteratorReturn.next()); // { value: 1, done: false }
+console.log(iteratorReturn.next()); // { value: 2, done: false }
+console.log(iteratorReturn.next()); // { value: 'a', done: true }
+
+// Delegating iterators: Combine values from two iterators into one.
+function *createNumberIterator() {
+  yield 1;
+  yield 2;
+}
+
+function *createColorIterators() {
+  yield "green";
+  yield "blue";
+}
+
+function *createCombinatedIterator() {
+  yield *createNumberIterator();
+  yield *createColorIterators();
+  yield true;
+}
+
+let combIterator = createCombinatedIterator();
+
+console.log(combIterator.next());
+console.log(combIterator.next());
+console.log(combIterator.next());
+console.log(combIterator.next());
+console.log(combIterator.next());
+console.log(combIterator.next());
