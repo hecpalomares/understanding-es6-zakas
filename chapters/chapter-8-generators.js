@@ -170,3 +170,45 @@ console.log(combIterator.next());
 console.log(combIterator.next());
 console.log(combIterator.next());
 console.log(combIterator.next());
+
+// Asynchronous Task Runner with Data
+function run(taskDef) {
+  // define the iterator 
+  let task = taskDef();
+
+  // start the task
+  let result = task.next();
+
+  // recursive function to keep calling next()
+  function step() {
+    if(!result.done) {
+      result = task.next(result.value);
+      step();
+    }
+  }
+
+  step(); // Start the process
+}
+
+function *funcWithData() {
+  let value = yield 1;
+  console.log(value);
+  value = yield value + 3;
+  console.log(value);
+}
+
+run(funcWithData);
+
+// Summary
+// Iterators provide a simple way to return a sequence of values
+
+// 'for-of' loop return a series of values in a loop. Easier to use than the normal 'for' loop no need
+// to track values and know where to end it
+
+// default iterators make easy to access the content of collections such as arrays, maps and sets
+
+// Generators: special function that automatically creates an iterator when called. Indicated with an (*)
+// 'yield' keyword to return the value for each successive call to the next() method
+
+// The most interesting is creating cleanr-looking asynchronous code
+// Replacing callbacks with 'yield' yo wait for asynchornous operations
