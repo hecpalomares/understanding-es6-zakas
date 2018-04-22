@@ -210,5 +210,5 @@ run(funcWithData);
 // Generators: special function that automatically creates an iterator when called. Indicated with an (*)
 // 'yield' keyword to return the value for each successive call to the next() method
 
-// The most interesting is creating cleanr-looking asynchronous code
+// The most interesting is creating cleaner-looking asynchronous code
 // Replacing callbacks with 'yield' yo wait for asynchornous operations
