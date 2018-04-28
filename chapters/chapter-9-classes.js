@@ -81,3 +81,89 @@ let personX = new class {
 }(25);  // Calling a function immediately, and passing 25 argument
 
 personX.sayAge(); // 25
+
+// Accessor Properties
+
+// Class Equivalent
+class CustomHTMLElement {
+  constructor(element) {
+    this.element = element;
+  }
+
+  // Create getter, 
+  get html() {
+    return this.element.innerHTML;
+  }
+
+  set html(value) {
+    this.element.innerHTML = value;
+  }
+}
+
+let descriptor = Object.getOwnPropertyDescriptor(CustomHTMLElement.prototype, "html");
+console.log("get" in descriptor);     // true
+console.log("set" in descriptor);     // true
+console.log(descriptor.enumerable);   // false
+
+// Nonclass equivlanet
+let CustomHTMLElementES5 = (function () {
+  "use strict";
+
+  const CustomHTMLElement = function (element) {
+    
+    if(typeof new.target === "undefined") {
+      throw new Error('Constructor must be called with new');
+    }
+    this.element = element;
+  }
+
+  Object.defineProperty(CustomHTMLElement.prototype, "html", {
+    enumerable: false,
+    configurable: false,
+    get: function() {
+      return this.element.innerHTML;
+    },
+    set: function (value) {
+      this.element.innerHTML = value;
+    }
+  });
+
+  return CustomHTMLElement; 
+
+}());
+
+// A lot of code can be omitted by using a class instead of a nonclass equivalent. 
+
+// Computed Member Names
+let methodName = "sayName";
+
+class PersonClass2 {
+  constructor(name) {
+    this.name = name;
+  }
+
+  // uses a variable to assign a name to a method inside its definition
+  [methodName]() {
+    console.log(this.name);
+  }
+};
+
+let me2 = new PersonClass2("Hector");
+// sayName() method is accessed directly after
+me.sayName();
+
+let propertyName = "skill";
+
+class Character {
+  constructor(element) {
+    this.element = element;
+  }
+
+  get [propertyName]() {
+    return this.element;
+  }
+
+  set [propertyName](value) {
+    this.element = value;
+  }
+}
