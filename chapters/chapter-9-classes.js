@@ -167,3 +167,111 @@ class Character {
     this.element = value;
   }
 }
+
+// Generator Methods
+// create a class MyGenClass with a generator method inside
+class MyGenClass {
+  *createIterator() {
+    yield 1;
+    yield 2;
+    yield 3;
+  }
+}
+
+let instance = new MyGenClass();
+let iterator = instance.createIterator();
+
+console.log(iterator.next()); // { value: 1, done: false }
+console.log(iterator.next()); // { value: 2, done: false }
+
+class Collection {
+  constructor() {
+    this.items = [];
+  }
+
+  *[Symbol.iterator]() {
+    yield *this.items.entries();
+  }
+}
+
+let collection = new Collection();
+collection.items.push("Andrew");
+collection.items.push("Peyton");
+collection.items.push("Jacoby");
+
+for(let value of collection) {
+  console.log(value);
+}
+
+// Static : adding methods into the constructor
+function Player(name) {
+  this.name = name;
+}
+
+// instance method
+Player.prototype.sayName = function() {
+  console.log(this.name);
+};
+
+// static method
+Player.create = function(name) {
+  return new Player(name);
+};
+
+let quarterback = Player.create("Peyton Manning");
+quarterback.sayName();
+
+// Static Methods on ES6 Classes
+class PlayerClass {
+  // equivalent of the PersonType constructor (line 207)
+  constructor(name) {
+    this.name = name;
+  }
+
+  // equivalent of the instance method PersonType2.prototype.sayName (line 212)
+  sayName() {
+    console.log(this.name);
+  }
+
+  // equivalent of the static method PersonType2.create (line 217)
+  static create(name) {
+    return new PlayerClass(name);
+  }
+
+}
+
+let quarterbackES6Class = PlayerClass.create("Andrew Luck");
+quarterbackES6Class.sayName();
+
+// Static member functions are not accessible from the instances. Only accessible directly from the class.
+
+// Inheritance Derived Classes
+// ES5 Inheritance
+function Rectangle(length, width) {
+  this.length = length;
+  this.width = width;
+}
+
+Rectangle.prototype.getArea = function () {
+  return this.length * this.width;
+}
+
+// Call the Rectangle.call()
+function Square(length) {
+  Rectangle.call(this, length, length);
+}
+
+// Overwrite Square prototype with new object created from Rectangle.protoype
+Square.prototype = Object.create(Rectangle.prototype, {
+  constructor: {
+    value: Square,
+    enumerable: true,
+    writable: true,
+    configurable: true
+  }
+});
+
+let square = new Square(3);
+console.log(square.getArea());            // 9
+console.log(square instanceof Square);    // true
+console.log(square instanceof Rectangle); // true
