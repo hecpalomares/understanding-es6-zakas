@@ -275,3 +275,61 @@ let square = new Square(3);
 console.log(square.getArea());            // 9
 console.log(square instanceof Square);    // true
 console.log(square instanceof Rectangle); // true
+
+// Inheritance with ES6
+class RectangleES6 {
+  constructor(length, width) {
+    this.length = length;
+    this.width = width;
+  }
+
+  getArea() {
+    console.log("Calling getArea method from Rectangle Class");
+    return this.length * this.width;
+  }
+
+  getPerimeter() {
+    console.log("Calling getPerimeter method from Rectangle Class");
+    return (2 * this.length) + (2 * this.width);
+  }
+
+  // Static methods are also inherited
+  static create(length, width) {
+    return new Rectangle(length, width);
+  }
+}
+
+// SquareES6 class inherits from RectangleES6 with 'extends' keyword
+// Classes that inherit from other classes are called derived classes. They require a 'super'.
+class SquareES6 extends RectangleES6 {
+  constructor(length) {
+    //  super() can only be used in a derived class constructor.
+    super(length, length); // equivalent of Rectangle.call(this, length, length)
+  }
+
+  // Shadowing Class Methods
+  // Calling from the base class version with super()
+  getArea() {
+    console.log("Calling getArea from Square (baseclass)");
+    return super.getArea();
+  }
+
+  // Shadowing the base class
+  getPerimeter() {
+    console.log("Calling getPerimeter from Square (shadowed)");
+    return (4 * this.length);
+  }
+}
+
+let squareES6 = new SquareES6(4);
+console.log(squareES6.getArea());   
+console.log(squareES6.getPerimeter());            // 16, line 301
+console.log(squareES6 instanceof SquareES6);      // true
+console.log(squareES6 instanceof RectangleES6);   // true
+
+let rectangleES6 = SquareES6.create(3, 4);
+console.log(rectangleES6.getArea());
+console.log(rectangleES6 instanceof RectangleES6);
+console.log(rectangleES6 instanceof SquareES6);
+
+// Derived Class From Expressions
