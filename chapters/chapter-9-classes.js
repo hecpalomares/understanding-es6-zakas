@@ -332,4 +332,61 @@ console.log(rectangleES6.getArea());
 console.log(rectangleES6 instanceof RectangleES6);
 console.log(rectangleES6 instanceof SquareES6);
 
-// Derived Class From Expressions
+// Derived Class From Expressions: Can use 'extends' with any expression  as long as the expressions solves to [[Construct]]
+function RectangleES5(length, width) {
+  this.length = length;
+  this.width = width;
+}
+
+RectangleES5.prototype.getArea = function () {
+  return this.length * this.width;
+};
+
+// Because RectangleES5 has a [[Constructor]] and a prototype. SquareDerived can inherit from it.
+class SquareDerived extends RectangleES5 {
+  constructor(length) {
+    super(length, length);
+  }
+}
+
+let mySquareDerived = new SquareDerived(8); 
+console.log(mySquareDerived.getArea());                 // 64
+console.log(mySquareDerived instanceof RectangleES5);   // true
+
+
+// Inherit Built-Ins
+// MyArray inherit directly from Array, and works like an Array. New to ES6.
+class MyArray extends Array {};
+
+let colors = new MyArray();
+colors[0] = "Red";
+console.log(colors.length); // 1
+
+colors.length = 0;
+console.log(colors[0]);     // undefined
+
+// Using a new.target in Class Constructors
+class Drink {
+  constructor(name, price) {
+    console.log(new.target === Drink);
+    this.name = name;
+    this.price = price;
+  }
+
+  calculatePriceAfterTax() {
+    return (this.price * 1.15).toFixed(2);
+  }
+}
+
+// new.target is Product
+let soda = new Drink("Soda", 0.99); // true, new.target was called from Drink
+console.log(soda.calculatePriceAfterTax());
+
+class AlcoholicDrink extends Drink {
+  constructor(name, price, ageRestriction) {
+    super(name, price);
+    this.ageRestriction = ageRestriction;
+  }
+}
+
+let beer = new AlcoholicDrink("Bohemia", 1.29, true); // false, new.target was called from AlcoholicDrink
