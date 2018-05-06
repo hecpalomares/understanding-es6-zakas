@@ -378,7 +378,7 @@ class Drink {
   }
 }
 
-// new.target is Product
+// new.target is Drink
 let soda = new Drink("Soda", 0.99); // true, new.target was called from Drink
 console.log(soda.calculatePriceAfterTax());
 
@@ -390,3 +390,33 @@ class AlcoholicDrink extends Drink {
 }
 
 let beer = new AlcoholicDrink("Bohemia", 1.29, true); // false, new.target was called from AlcoholicDrink
+
+// Instance Abstract Classes with new.target
+// Abstract base class
+class Job {
+  constructor(name, salary) {
+    if(new.target !== Job) {
+      this.name = name;
+      this.salary = salary;
+    } else {
+      throw new Error("Job class cannot be instantiated directly.");
+    }
+  }
+}
+
+class Programmer extends Job {
+  constructor(name, salary, skill) {
+    super(name, salary);
+    this.skill = skill;
+  }
+}
+
+// let ricard = new Job("Richard", 20000); // Error: Job class cannot be instantiated directly.
+let ricard = new Programmer("Ricard", 2000, "Back-end");
+
+// Summary
+// ES6 makes inheritance in JavaScript easier by making it similar to other OOP languages.
+// ES6 Classes started as syntatic sugar, right now it included several features to make a real difference.
+// Non-static methods work as prototypal inheritance. Static methods end up in the constructor.
+// All methods are non-enumerable (an expected behavior) as other objects with built-in methods.
+// Class constructors cannot be called without 'new' keyword, ensuring that is not called as a function.
