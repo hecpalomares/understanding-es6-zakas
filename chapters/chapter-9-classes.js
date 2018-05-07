@@ -420,3 +420,4 @@ let ricard = new Programmer("Ricard", 2000, "Back-end");
 // Non-static methods work as prototypal inheritance. Static methods end up in the constructor.
 // All methods are non-enumerable (an expected behavior) as other objects with built-in methods.
 // Class constructors cannot be called without 'new' keyword, ensuring that is not called as a function.
+// Overall, classes provice a more concise syntax and better functionality for defining custom object types.
