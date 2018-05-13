@@ -55,3 +55,53 @@ promise2.catch(value => console.log(value));    // Rejected
 
 // promise1.catch(value => console.log(value));     // Error, unhandled promise
 // promise2.then(value => console.log(value));      // Error, unhandled promise
+
+// Chaining Promises: acomplish more complex asynchronous behaivor executing promises one after the other
+let p1 = new Promise((resolve, reject) => {
+  resolve(42);
+});
+
+p1.then(value => {
+  console.log(value)
+}).then(() => {
+  console.log("Finish");
+});
+
+// Return values in Promises chains: pass data from one promise to the next with 'return'
+let p2 = new Promise((resolve, reject) => {
+  resolve("Hi my name is ");
+});
+
+p2.then(value => {
+  console.log(value);
+  return value + "Hector";
+}).then(value => {
+  console.log(value);
+});
+
+// Promise.all(): accepts an array of promises to monitor and returns a promise thats is resolved when all promises are resolved.
+// if a single promise is rejected the returned promise is rejected immedediately.
+let promisePartial1 = new Promise((resolve, reject) => {
+  resolve("A");
+});
+
+let promisePartial2 = new Promise((resolve, reject) => {
+  resolve("B");
+});
+
+let promisePartial3 = new Promise((resolve, reject) => {
+  resolve("C");
+});
+
+let promiseMerge = Promise.all([
+  promisePartial1,
+  promisePartial2,
+  promisePartial3
+]);
+
+promiseMerge.then(result => {
+  console.log(Array.isArray(result));
+  console.log(result[0]); // A
+  console.log(result[1]); // B
+  console.log(result[2]); // C
+});
