@@ -80,7 +80,6 @@ p2.then(value => {
 });
 
 // Promise.all(): accepts an array of promises to monitor and returns a promise thats is resolved when all promises are resolved.
-// if a single promise is rejected the returned promise is rejected immedediately.
 let promisePartial1 = new Promise((resolve, reject) => {
   resolve("A");
 });
@@ -105,3 +104,50 @@ promiseMerge.then(result => {
   console.log(result[1]); // B
   console.log(result[2]); // C
 });
+
+// If a single promise is rejected the returned promise is rejected immedediately without waiting the rest of the promises
+let promisePartial4 = new Promise((resolve, reject) => {
+  resolve("A");
+});
+
+let promisePartial5 = new Promise((resolve, reject) => {
+  reject("B");
+});
+
+let promisePartial6 = new Promise((resolve, reject) => {
+  resolve("C");
+});
+
+let promiseMerge2 = Promise.all([
+  promisePartial4,
+  promisePartial5,
+  promisePartial6
+]);
+
+promiseMerge2.catch(result => {
+  console.log(Array.isArray(result));
+  console.log(result); // B
+});
+
+// Promise.race(): accepts an array of promises to monitor and returns a promise thats is resolved when the first promise is resolved.
+let promiseRace = Promise.race([
+  promisePartial1,
+  promisePartial2,
+  promisePartial3
+]);
+
+promiseRace.then(value => console.log("Promise Race Value: ", value));  // A
+
+// --- SUMMARY --- //
+// Promises are designed to improve asynchronous programming in JavaScript by giving control and composability over async operations, in a higher 
+// regard that events or callbacks can do.
+
+// Promises schedule a job to be added to the JavaScript engine job queue for future execution. A second job queue tracks for the resolve or rejected state.
+
+// Promises have three states: pending, fulfilled and rejected. 
+// The .then() method assigns a fulfilled and rejected handler. The .catch() assigns only a rejected handler.
+
+// .then() method can be used to chain Promises and pass information between them. 
+// Promise.race() and Promise.all() monitor the progress of multiple promises and respond accordingly.
+
+// Many new web API's are built on top of promises.
