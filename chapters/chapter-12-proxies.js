@@ -128,4 +128,4 @@ console.log(instanceNumbers2.value);  // undefined
 // Summary
 // Proxies on a object intercept the calls to the object, and run certain logic on each trap triggered
 // Reflection API: allows to implement the default behavior for each proxy trap
-// Only the get, set, and has proxy traps will ever be called on a proxy used as a property
+// Only the get, set, and has proxy traps will ever be called on a proxy used as a propertyl
